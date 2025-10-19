@@ -11,6 +11,9 @@ import {
 
 const Index = () => {
   const [activeSection, setActiveSection] = useState('main');
+  const [showLogin, setShowLogin] = useState(false);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   const features = [
     {
@@ -118,8 +121,11 @@ const Index = () => {
               ))}
             </div>
 
-            <Button className="bg-gradient-to-r from-neon-blue to-neon-purple hover:opacity-90 transition-opacity">
-              Начать
+            <Button 
+              onClick={() => setShowLogin(!showLogin)}
+              className="bg-gradient-to-r from-neon-blue to-neon-purple hover:opacity-90 transition-opacity"
+            >
+              {showLogin ? 'Закрыть' : 'Начать'}
             </Button>
           </div>
         </div>
@@ -151,6 +157,53 @@ const Index = () => {
                   Узнать больше
                 </Button>
               </div>
+              
+              {showLogin && (
+                <Card className="mt-8 p-8 bg-card/80 backdrop-blur-xl border-primary/30 max-w-md mx-auto animate-fade-in">
+                  <h3 className="text-2xl font-heading font-bold mb-6 text-center">Вход в аккаунт</h3>
+                  <div className="space-y-4">
+                    <div>
+                      <label className="block text-sm font-medium mb-2">Email</label>
+                      <input
+                        type="email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        placeholder="example@email.com"
+                        className="w-full px-4 py-3 rounded-lg bg-background border border-border focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium mb-2">Пароль</label>
+                      <input
+                        type="password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        placeholder="••••••••"
+                        className="w-full px-4 py-3 rounded-lg bg-background border border-border focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all"
+                      />
+                    </div>
+                    <Button className="w-full bg-gradient-to-r from-neon-blue to-neon-purple hover:opacity-90 transition-opacity py-6 text-lg">
+                      <Icon name="LogIn" className="mr-2" size={20} />
+                      Войти
+                    </Button>
+                    <div className="text-center">
+                      <a href="#" className="text-sm text-primary hover:underline">Забыли пароль?</a>
+                    </div>
+                    <div className="relative">
+                      <div className="absolute inset-0 flex items-center">
+                        <div className="w-full border-t border-border"></div>
+                      </div>
+                      <div className="relative flex justify-center text-sm">
+                        <span className="px-2 bg-card text-muted-foreground">или</span>
+                      </div>
+                    </div>
+                    <Button variant="outline" className="w-full border-border hover:bg-card/50 py-6">
+                      <Icon name="UserPlus" className="mr-2" size={20} />
+                      Создать аккаунт
+                    </Button>
+                  </div>
+                </Card>
+              )}
             </div>
           </div>
         </section>
